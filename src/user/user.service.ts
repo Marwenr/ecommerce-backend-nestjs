@@ -30,15 +30,14 @@ export class UserService {
     return this.userRepository.findOne({ where: { email } });
   }
 
-  async create(CreateUser: CreateUserDto): Promise<UserEntity> {
+  async create(CreateUser: CreateUserDto) {
     const check = await this.findByEmail(CreateUser.email);
     if (check) {
       throw new BadRequestException('This email is already exist');
     }
     const user = this.userRepository.create(CreateUser);
-    const current = await this.userRepository.save(user);
-    delete current?.password;
-    return current;
+    await this.userRepository.save(user);
+    return;
   }
 
   async createUser(CreateUser) {
@@ -51,13 +50,14 @@ export class UserService {
     return this.create(CreateUser);
   }
 
-  async update(id: number, updateUser: UpdateUserDto): Promise<UserEntity> {
+  async update(id: number, updateUser: UpdateUserDto) {
     const updatedUser = await this.userRepository.preload({
       id: +id,
       ...updateUser,
     });
     if (!updatedUser) throw new NotFoundException('This user does not exist');
-    return this.userRepository.save(updatedUser);
+    await this.userRepository.save(updatedUser);
+    return;
   }
 
   async remove(id: number) {

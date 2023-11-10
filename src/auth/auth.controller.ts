@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Get, UseGuards, Req } from '@nestjs/common';
+import { Body, Controller, Post, Get, UseGuards, Request } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Roles } from './roles/roles.decorator';
 import { Role } from 'src/user/user.interface';
@@ -18,7 +18,7 @@ export class AuthController {
   @Get()
   @Roles(Role.Admin, Role.Manager, Role.User)
   @UseGuards(JwtAuthGuard, RoleGuard)
-  profile(@Req() request: any) {
-    return request.user;
+  refrechToken(@Request() request) {
+    return this.authService.refrechToken(request.user);
   }
 }

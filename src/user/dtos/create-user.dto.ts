@@ -12,6 +12,12 @@ export class CreateUserDto {
   @IsString()
   readonly password: string;
 
+  @IsString()
+  readonly phone: string;
+
+  @IsString()
+  readonly address: string;
+
   @IsEnum(Role)
   readonly role: Role;
 }

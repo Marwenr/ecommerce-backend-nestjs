@@ -22,13 +22,24 @@ export class UserEntity {
   @Column()
   password: string;
 
+  @Column()
+  phone: string;
+
+  @Column()
+  address: string;
+
   @Column({ default: 'user' })
   role: Role;
 
   @BeforeInsert()
   @BeforeUpdate()
   async hashPassword() {
-    if (this.password) {
+    try {
+      const round = bcrypt.getRounds(this.password);
+      if (round === 0) {
+        this.password = await bcrypt.hash(this.password, 10);
+      }
+    } catch (error) {
       this.password = await bcrypt.hash(this.password, 10);
     }
   }

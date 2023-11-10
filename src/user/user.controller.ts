@@ -32,22 +32,21 @@ export class UserController {
   }
 
   @Post()
-  create(@Body() user: CreateUserDto): Promise<UserEntity> {
+  create(@Body() user: CreateUserDto) {
     return this.userService.createUser(user);
   }
 
   @Post('admin')
   @Roles(Role.Manager)
   @UseGuards(JwtAuthGuard, RoleGuard)
-  createAdmin(@Body() user: CreateUserDto): Promise<UserEntity> {
+  createAdmin(@Body() user: CreateUserDto) {
     return this.userService.createAdmin(user);
   }
 
   @Patch(':id')
-  update(
-    @Param('id') id: number,
-    @Body() updateUser: UpdateUserDto,
-  ): Promise<UserEntity> {
+  @Roles(Role.Manager, Role.Admin, Role.User)
+  @UseGuards(JwtAuthGuard, RoleGuard)
+  update(@Param('id') id: number, @Body() updateUser: UpdateUserDto) {
     return this.userService.update(id, updateUser);
   }
 
