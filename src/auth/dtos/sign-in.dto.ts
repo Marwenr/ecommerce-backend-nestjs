@@ -1,7 +1,7 @@
 import { IsString, IsEmail } from 'class-validator';
 
 export class SignInDto {
-  @IsEmail({}, { each: true })
+  @IsEmail()
   readonly email: string;
 
   @IsString()
