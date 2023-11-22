@@ -3,10 +3,12 @@ import {
   BeforeUpdate,
   Column,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Role } from './user.interface';
 import * as bcrypt from 'bcrypt';
+import { Cart } from 'src/cart/entities/cart.entity';
 
 @Entity()
 export class UserEntity {
@@ -30,6 +32,11 @@ export class UserEntity {
 
   @Column({ default: 'user' })
   role: Role;
+
+  @OneToMany(() => Cart, (cart) => cart.user, {
+    eager: true,
+  })
+  cart: Cart[];
 
   @BeforeInsert()
   @BeforeUpdate()

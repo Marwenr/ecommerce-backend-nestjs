@@ -22,11 +22,15 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
+  @Roles(Role.Manager)
+  @UseGuards(JwtAuthGuard, RoleGuard)
   find(): Promise<UserEntity[]> {
     return this.userService.find();
   }
 
   @Get(':id')
+  @Roles(Role.Manager, Role.Admin)
+  @UseGuards(JwtAuthGuard, RoleGuard)
   findOne(@Param('id') id: number): Promise<UserEntity> {
     return this.userService.findOne(id);
   }

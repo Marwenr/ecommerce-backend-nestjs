@@ -46,7 +46,8 @@ export class UserService {
   }
 
   async createAdmin(CreateUser) {
-    if (CreateUser.role !== Role.Admin) throw new ForbiddenException();
+    if (CreateUser.role !== Role.Admin && CreateUser.role !== Role.Manager)
+      throw new ForbiddenException();
     return this.create(CreateUser);
   }
 
