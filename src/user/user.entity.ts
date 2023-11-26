@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { Role } from './user.interface';
 import * as bcrypt from 'bcrypt';
-import { Cart } from 'src/cart/entities/cart.entity';
+import { Order } from 'src/order/entities/order.entity';
 
 @Entity()
 export class UserEntity {
@@ -33,10 +33,10 @@ export class UserEntity {
   @Column({ default: 'user' })
   role: Role;
 
-  @OneToMany(() => Cart, (cart) => cart.user, {
+  @OneToMany(() => Order, (order) => order.user, {
     eager: true,
   })
-  cart: Cart[];
+  order: Order[];
 
   @BeforeInsert()
   @BeforeUpdate()

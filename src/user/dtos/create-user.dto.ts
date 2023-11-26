@@ -19,5 +19,5 @@ export class CreateUserDto {
   readonly address: string;
 
   @IsEnum(Role)
-  readonly role: Role;
+  readonly role: Role = Role.User;
 }

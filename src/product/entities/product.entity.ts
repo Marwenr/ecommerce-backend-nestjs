@@ -1,5 +1,5 @@
-import { CartProducts } from 'src/cart/entities/cart-product.entity';
 import { Category } from 'src/category/entities/category.entity';
+import { OrderProduct } from 'src/order/entities/order.product.entity';
 import {
   Column,
   Entity,
@@ -28,8 +28,8 @@ export class Product {
   @ManyToOne(() => Category, (category) => category.products)
   category: Category;
 
-  @OneToMany(() => CartProducts, (CartProducts) => CartProducts.product, {
+  @OneToMany(() => OrderProduct, (orderProduct) => orderProduct.product, {
     eager: true,
   })
-  cartProducts: CartProducts[];
+  orderProduct: OrderProduct[];
 }
