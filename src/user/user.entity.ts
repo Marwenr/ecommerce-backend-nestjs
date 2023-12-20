@@ -33,9 +33,7 @@ export class UserEntity {
   @Column({ default: 'user' })
   role: Role;
 
-  @OneToMany(() => Order, (order) => order.user, {
-    eager: true,
-  })
+  @OneToMany(() => Order, (order) => order.user)
   order: Order[];
 
   @BeforeInsert()

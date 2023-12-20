@@ -15,6 +15,7 @@ export class OrderProduct {
 
   @ManyToOne(() => Product, (product) => product.orderProduct, {
     onDelete: 'CASCADE',
+    eager: true,
   })
   product: Product;
 

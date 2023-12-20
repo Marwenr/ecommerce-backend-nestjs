@@ -25,11 +25,11 @@ export class Product {
   @Column()
   image: string;
 
-  @ManyToOne(() => Category, (category) => category.products)
-  category: Category;
-
-  @OneToMany(() => OrderProduct, (orderProduct) => orderProduct.product, {
+  @ManyToOne(() => Category, (category) => category.products, {
     eager: true,
   })
+  category: Category;
+
+  @OneToMany(() => OrderProduct, (orderProduct) => orderProduct.product)
   orderProduct: OrderProduct[];
 }

@@ -12,11 +12,8 @@ import {
 
 export enum Status {
   Pending = 'pending',
-  Confirmed = 'confirmed',
-  Shipped = 'shipped',
-  Delivered = 'delivered',
-  Cancelled = 'cancelled',
-  Failed = 'failed',
+  Completed = 'completed',
+  Cancel = 'cancel',
 }
 
 export enum Payment {
@@ -32,7 +29,9 @@ export class Order {
   @Column()
   userId: number;
 
-  @ManyToOne(() => UserEntity, (user) => user.order)
+  @ManyToOne(() => UserEntity, (user) => user.order, {
+    eager: true,
+  })
   user: UserEntity;
 
   @JoinTable()
